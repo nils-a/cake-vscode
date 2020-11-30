@@ -17,7 +17,7 @@ export function writeLinesToFile({
 }): Promise<string | never> {
     return new Promise((resolve, reject) => {
         try {
-            let stream = fs.createWriteStream(filePath, {
+            const stream = fs.createWriteStream(filePath, {
                 flags: 'w'
             });
 

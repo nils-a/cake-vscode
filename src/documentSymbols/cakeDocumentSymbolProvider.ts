@@ -26,8 +26,8 @@ export class CakeDocumentSymbolProvider implements DocumentSymbolProvider {
     public provideDocumentSymbols(document: TextDocument, token: CancellationToken): Promise<DocumentSymbol[]> {
         
         return new Promise((resolve, reject) => {
-            let context = new DocumentSymbol("Context", "Context functions", SymbolKind.Namespace, new Range(0, 0, 0, 0), new Range(0, 0, 0, 0));
-            let tasks = new DocumentSymbol("Tasks", "Task functions", SymbolKind.Namespace, new Range(0, 0, 0, 0), new Range(0, 0, 0, 0));
+            const context = new DocumentSymbol("Context", "Context functions", SymbolKind.Namespace, new Range(0, 0, 0, 0), new Range(0, 0, 0, 0));
+            const tasks = new DocumentSymbol("Tasks", "Task functions", SymbolKind.Namespace, new Range(0, 0, 0, 0), new Range(0, 0, 0, 0));
 
             const symbols: DocumentSymbol[] = [];
             symbols.push(context, tasks);
@@ -36,7 +36,7 @@ export class CakeDocumentSymbolProvider implements DocumentSymbolProvider {
                 return reject('No open document in the workspace');
             }
  
-            for (var i = 0; i < document.lineCount; i++) {
+            for (let i = 0; i < document.lineCount; i++) {
                 if (token.isCancellationRequested) {
                     return resolve(symbols);
                 }  

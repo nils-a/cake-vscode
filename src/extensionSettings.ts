@@ -6,6 +6,7 @@ interface IPlatformSettings<T> {
     [platform: string]: T;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ILaunchCommandSettings 
     extends IPlatformSettings<string> {
 }
@@ -33,6 +34,7 @@ export interface IConfigurationSettings {
     config: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface 
 export interface ICodeLensDebugTaskProgramSettings 
     extends IPlatformSettings<string> {
 }

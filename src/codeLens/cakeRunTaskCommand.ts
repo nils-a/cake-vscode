@@ -13,7 +13,7 @@ export async function installCakeRunTaskCommand(
     await installCakeToolIfNeeded(settings, context);
     
     let buildCommand = getPlatformSettingsValue(settings.taskRunner.launchCommand);
-    buildCommand = `${buildCommand} \"${fileName}\" --target=\"${taskName}\" --verbosity=${settings.taskRunner.verbosity}`;
+    buildCommand = `${buildCommand} "${fileName}" --target="${taskName}" --verbosity=${settings.taskRunner.verbosity}`;
 
     TerminalExecutor.runInTerminal(buildCommand);
 }

@@ -1,4 +1,4 @@
-var request = require('request');
+import * as request from 'request';
 import vscode = require('vscode');
 import * as path from 'path';
 
@@ -14,7 +14,7 @@ export class CakeConfiguration {
     public download(stream: NodeJS.WritableStream): Thenable<boolean> {
         return new Promise((resolve, reject) => {
             // Get the Cake configuration.
-            var config = vscode.workspace.getConfiguration('cake');
+            const config = vscode.workspace.getConfiguration('cake');
 
             if (!config) {
                 reject('Could not resolve configuration configuration.');
@@ -22,7 +22,7 @@ export class CakeConfiguration {
             }
 
             // Get the bootstrapper URI from the configuration.
-            var uri = config['configuration']['config'];
+            const uri = config['configuration']['config'];
 
             if (!uri) {
                 reject(

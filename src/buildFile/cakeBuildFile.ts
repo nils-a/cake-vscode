@@ -18,7 +18,7 @@ export class CakeBuildFile {
     public create(): Thenable<boolean> {
         return new Promise((resolve, reject) => {
             try {
-                let buildFile = fs.createWriteStream(this.getTargetPath(), {
+                const buildFile = fs.createWriteStream(this.getTargetPath(), {
                     flags: 'a'
                 });
 

@@ -1,11 +1,11 @@
 import { CAKE_DEFAULT_TERMINAL } from './../../constants';
-import { exec, execSync } from 'child_process';
+import { ChildProcess, exec, execSync } from 'child_process';
 import * as vscode from 'vscode';
 
 export default class TerminalExecutor {
     public static runInTerminal(
         command: string,
-        addNewLine: boolean = true,
+        addNewLine = true,
         terminal: string = CAKE_DEFAULT_TERMINAL
     ): void {
         if (this.terminals[terminal] === undefined) {
@@ -15,11 +15,11 @@ export default class TerminalExecutor {
         this.terminals[terminal].sendText(command, addNewLine);
     }
 
-    public static exec(command: string) {
+    public static exec(command: string): ChildProcess {
         return exec(command);
     }
 
-    public static execSync(command: string) {
+    public static execSync(command: string): string {
         return execSync(command, { encoding: 'utf8' });
     }
 

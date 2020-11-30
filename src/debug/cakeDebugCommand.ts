@@ -49,14 +49,14 @@ export async function installCakeDebugCommand(context: ExtensionContext, hideWar
 }
 
 export async function installCakeDebug(): Promise<interfaces.IInstallResult> {
-    let debug = new CakeDebug();
+    const debug = new CakeDebug();
 
-    var targetPath = debug.getTargetPath();
+    const targetPath = debug.getTargetPath();
     if (fs.existsSync(targetPath)) {
         return { installed: true, advice: false };
     }
 
-    var result = await debug.downloadAndExtract();
+    const result = await debug.downloadAndExtract();
     return { installed: result, advice: true };
 }
 

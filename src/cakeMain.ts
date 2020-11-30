@@ -136,8 +136,8 @@ function _verifyTasksRunner(config: ITaskRunnerSettings,
 }
 
 async function _getCakeScriptsAsTasks(context: vscode.ExtensionContext): Promise<vscode.Task[]> {
-    let workspaceRoot = vscode.workspace.rootPath;
-    let emptyTasks: vscode.Task[] = [];
+    const workspaceRoot = vscode.workspace.rootPath;
+    const emptyTasks: vscode.Task[] = [];
 
     if (!workspaceRoot) {
         return emptyTasks;
@@ -145,7 +145,7 @@ async function _getCakeScriptsAsTasks(context: vscode.ExtensionContext): Promise
 
     try {
         const config = getExtensionSettings().taskRunner;
-        let files = await vscode.workspace.findFiles(
+        const files = await vscode.workspace.findFiles(
             config.scriptsIncludePattern,
             config.scriptsExcludePattern
         );
@@ -161,13 +161,13 @@ async function _getCakeScriptsAsTasks(context: vscode.ExtensionContext): Promise
         files.forEach(file => {
             const contents = fs.readFileSync(file.fsPath).toString();
 
-            let taskRegularExpression = new RegExp(
+            const taskRegularExpression = new RegExp(
                 config.taskRegularExpression,
                 'g'
             );
 
             let matches: RegExpExecArray | null;
-            let taskNames: string[] = [];
+            const taskNames: string[] = [];
 
             while ((matches = taskRegularExpression.exec(contents))) {
                 taskNames.push(matches[1]);

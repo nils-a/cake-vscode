@@ -5,7 +5,7 @@ import { CakeBootstrapperInfo } from './cakeBootstrapperInfo';
 
 export async function installCakeBootstrapperCommand() {
     // Let the user select the bootstrapper.
-    var info = await window.showQuickPick(CakeBootstrapper.getBootstrappers(), {
+    const info = await window.showQuickPick(CakeBootstrapper.getBootstrappers(), {
         placeHolder: 'Select the bootstrapper that you want to install',
         matchOnDetail: true,
         matchOnDescription: true
@@ -26,19 +26,19 @@ export async function installCakeBootstrapperCommand() {
 
 export async function installCakeBootstrapperFile(
     info: CakeBootstrapperInfo,
-    notifyOnCompletion: boolean = true
+    notifyOnCompletion = true
 ) {
     // Create the bootstrapper from the platform.
-    let bootstrapper = new CakeBootstrapper(info);
+    const bootstrapper = new CakeBootstrapper(info);
 
     // Does the bootstrapper already exist?
-    var buildFilePath = bootstrapper.getTargetPath();
+    const buildFilePath = bootstrapper.getTargetPath();
 
     if (fs.existsSync(buildFilePath)) {
-        var message = `Overwrite the existing \'${
+        const message = `Overwrite the existing '${
             info.fileName
-        }\' file in this folder?`;
-        var option = await window.showWarningMessage(message, 'Overwrite');
+        }' file in this folder?`;
+        const option = await window.showWarningMessage(message, 'Overwrite');
 
         if (option !== 'Overwrite') {
             return;
@@ -46,8 +46,8 @@ export async function installCakeBootstrapperFile(
     }
 
     // Download the bootstrapper and save it to disk.
-    var file = fs.createWriteStream(buildFilePath);
-    var result = await bootstrapper.download(file);
+    const file = fs.createWriteStream(buildFilePath);
+    const result = await bootstrapper.download(file);
 
     if (result) {
         if (process.platform !== 'win32' && info.posix) {

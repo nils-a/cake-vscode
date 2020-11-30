@@ -33,7 +33,7 @@ function _getFileContentWithDirective(
             encoding: 'utf8'
         });
         const stream = byline(fileStream, { keepEmptyLines: true });
-        let content: Array<string> = [];
+        const content: Array<string> = [];
         let containDirective = false;
         stream.on('data', line => {
             if (

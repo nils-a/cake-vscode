@@ -1,7 +1,7 @@
 import { parseString, Builder as XMLBuilder } from 'xml2js';
 import { getFileErrorMessage, handleError } from '../../shared/utils';
 
-export function createEmptyPackagesConfigAsXml() {
+export function createEmptyPackagesConfigAsXml(): string {
     return '<packages></packages>';
 }
 
@@ -27,7 +27,7 @@ export function updatePackagesConfig(
     const version = packageVersion.startsWith('Latest version')
         ? '*'
         : packageVersion;
-    let fixedPackages: Array<{}> = [];
+    const fixedPackages: Array<any> = [];
 
     fixedPackages.push(createPackageSection(packageName, version));
 
@@ -35,7 +35,7 @@ export function updatePackagesConfig(
         return { packages: fixedPackages };
     }
 
-    let refPackages = [...xmlConfig.packages.package];
+    const refPackages = [...xmlConfig.packages.package];
 
     refPackages.forEach((ref: any) => {
         if (ref.$.id === packageName) return;

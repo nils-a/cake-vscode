@@ -39,7 +39,7 @@ export class CakeDebugTaskCodeLens extends CodeLens {
 export class CakeCodeLensProvider implements CodeLensProvider {
     private _onDidChangeCodeLensesEmitter = new EventEmitter<void>();
     private _taskNameRegExp: RegExp;
-    public showCodeLens: boolean = false;
+    public showCodeLens = false;
 
     public constructor(taskRegExp: string) {
         this._taskNameRegExp = new RegExp(taskRegExp, 'g');
@@ -49,8 +49,8 @@ export class CakeCodeLensProvider implements CodeLensProvider {
         const symbols: SymbolInformation[] = [];
 
         for (let i = 0; i < document.lineCount; i++) {
-            let line = document.lineAt(i);
-            let matches = this._taskNameRegExp.exec(line.text);
+            const line = document.lineAt(i);
+            const matches = this._taskNameRegExp.exec(line.text);
             if (matches) {
                 symbols.push(
                     new SymbolInformation(
@@ -124,6 +124,7 @@ export class CakeCodeLensProvider implements CodeLensProvider {
         return codeLens;
     }
 
-    public dispose() {
-    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    public dispose(): void { }
 }

@@ -4,14 +4,14 @@ import { OUTPUT_CHANNEL_NAME } from '../constants';
 let channel: OutputChannel;
 
 export function logToOutput(...items: string[]): void {
-    var channel = getChannel(OUTPUT_CHANNEL_NAME);
+    const channel = getChannel(OUTPUT_CHANNEL_NAME);
     items.forEach(item => {
         channel.appendLine(item);
     });
 }
 
-export function logError(error: string, notify: boolean = true) {
-    var channel = getChannel(OUTPUT_CHANNEL_NAME);
+export function logError(error: string, notify = true) {
+    const channel = getChannel(OUTPUT_CHANNEL_NAME);
     channel.appendLine('Error encountered during Cake operation.');
     channel.appendLine(`E: ${error}`);
 
@@ -20,8 +20,8 @@ export function logError(error: string, notify: boolean = true) {
     }
 }
 
-export function logInfo(info: string, notify: boolean = false) {
-    var channel = getChannel(OUTPUT_CHANNEL_NAME);
+export function logInfo(info: string, notify = false) {
+    const channel = getChannel(OUTPUT_CHANNEL_NAME);
     channel.appendLine(`I: ${info}`);
 
     if (notify) {

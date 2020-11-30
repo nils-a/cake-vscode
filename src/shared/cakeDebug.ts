@@ -1,6 +1,6 @@
 import { readCakeConfigFile } from './utils/readConfigFile';
-var request = require('request');
-var AdmZip = require('adm-zip');
+import * as request from 'request';
+import * as AdmZip from 'adm-zip';
 import { window, workspace } from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -48,7 +48,10 @@ export class CakeDebug {
     public downloadAndExtract(): Thenable<boolean> {
         return new Promise((resolve, reject) => {
             // Download the NuGet Package
-            let vm = this;
+
+            // TODO: check if the next statement is really needed!
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            const vm = this;
 
             try {
                 if (!fs.existsSync(vm.getToolFolderPath())) {
@@ -58,8 +61,8 @@ export class CakeDebug {
                 window.showErrorMessage('Unable to create directory');
             }
 
-            var data: any[] = [],
-                dataLen = 0;
+            const data: any[] = [];
+            let dataLen = 0;
 
             request
                 .get(CAKE_CORECLR_PACKAGE_URL, {
@@ -70,14 +73,14 @@ export class CakeDebug {
                     dataLen += chunk.length;
                 })
                 .on('end', function() {
-                    var buf = new Buffer(dataLen);
+                    const buf = new Buffer(dataLen);
 
-                    for (var i = 0, len = data.length, pos = 0; i < len; i++) {
+                    for (let i = 0, len = data.length, pos = 0; i < len; i++) {
                         data[i].copy(buf, pos);
                         pos += data[i].length;
                     }
 
-                    var zip = new AdmZip(buf);
+                    const zip = new AdmZip(buf);
                     zip.extractAllTo(vm.getNupkgDestinationPath());
                     resolve(true);
                 })

@@ -1,4 +1,4 @@
-var request = require('request');
+import * as request from 'request';
 import vscode = require('vscode');
 import * as path from 'path';
 import { CakeBootstrapperInfo } from './cakeBootstrapperInfo';
@@ -75,7 +75,7 @@ export class CakeBootstrapper {
     }
 
     public static getBootstrappersByType(bootstrapperType: enums.RunnerType): CakeBootstrapperInfo[] {
-        var filteredBootstrappers = CakeBootstrapper.bootstrappers.filter(bootstrapper => bootstrapper.type === bootstrapperType);
+        const filteredBootstrappers = CakeBootstrapper.bootstrappers.filter(bootstrapper => bootstrapper.type === bootstrapperType);
 
         return filteredBootstrappers;
     }
@@ -83,14 +83,14 @@ export class CakeBootstrapper {
     public download(stream: NodeJS.WritableStream): Thenable<boolean> {
         return new Promise((resolve, reject) => {
             // Get the Cake configuration.
-            var config = vscode.workspace.getConfiguration('cake');
+            const config = vscode.workspace.getConfiguration('cake');
             if (!config) {
                 reject('Could not resolve bootstrapper configuration.');
                 return;
             }
 
             // Get the bootstrapper URI from the configuration.
-            var uri = config['bootstrappers'][this._info.id];
+            const uri = config['bootstrappers'][this._info.id];
             if (!uri) {
                 reject(
                     'Could not resolve bootstrapper URI from configuration.'

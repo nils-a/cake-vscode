@@ -10,7 +10,7 @@ export async function installBuildFileCommand() {
         return;
     }
 
-    var name = await window.showInputBox({
+    const name = await window.showInputBox({
         placeHolder: messages.PROMPT_SCRIPT_NAME,
         value: DEFAULT_SCRIPT_NAME
     });
@@ -22,7 +22,7 @@ export async function installBuildFileCommand() {
         return;
     }
 
-    var result = await installBuildFile(name);
+    const result = await installBuildFile(name);
 
     if (result) {
         window.showInformationMessage(
@@ -35,15 +35,15 @@ export async function installBuildFileCommand() {
 
 export async function installBuildFile(fileName: string): Promise<boolean> {
     // Create the buildFile object
-    let buildFile = new CakeBuildFile(fileName);
+    const buildFile = new CakeBuildFile(fileName);
 
-    var targetPath = buildFile.getTargetPath();
-    var ready = await utils.checkForExisting(targetPath);
+    const targetPath = buildFile.getTargetPath();
+    const ready = await utils.checkForExisting(targetPath);
 
     if (!ready) {
         Promise.reject(CANCEL);
     }
 
-    var result = await buildFile.create();
+    const result = await buildFile.create();
     return result;
 }

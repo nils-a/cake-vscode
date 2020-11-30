@@ -27,7 +27,7 @@ export function installCake(
             vscode.window.setStatusBarMessage(
                 'Installing Cake to workspace with requested options...'
             );
-            var results = new Array<Thenable<void>>();
+            const results = new Array<Thenable<void>>();
             results.push(
                 installBuildFile(installOpts.scriptName).then(
                     v => {

@@ -13,7 +13,7 @@ export class CakeTool {
 
     private getCakeVersionFromProc(proc: ChildProcessWithoutNullStreams): Promise<Version|null> {
         return new Promise((resolve, reject) => {
-            const regex = new RegExp(/^cake\.tool\s+([\d\.]+(-\S+)?)/im); // https://regex101.com/r/nC8uxu/2
+            const regex = new RegExp(/^cake\.tool\s+([\d.]+(-\S+)?)/im); // https://regex101.com/r/nC8uxu/2
             let ver: Version|null = null;
             proc.on('error', (error) => {
                 reject(error);
