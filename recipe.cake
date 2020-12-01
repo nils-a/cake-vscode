@@ -24,4 +24,67 @@ BuildParameters.SetParameters(context: Context,
 
 BuildParameters.PrintParameters(Context);
 
+Task("lint")
+    .IsDependentOn("Npm-Install")
+    .IsDependeeOf("Package-Extension")
+    .Does(() =>
+{
+    var proc = "node_modules/.bin/eslint";
+    if(BuildParameters.IsRunningOnWindows) {
+        proc += ".cmd";
+    }
+
+    var ret = StartProcess(proc, "-c .eslintrc.json --ext .ts src");
+    if(ret != 0){
+        throw new Exception("There were linting errors!");
+    }
+});
+
+Task("Install-depcheck")
+    .Does(() => {
+    var settings = new NpmInstallSettings {
+        Global = true,
+        LogLevel = NpmLogLevel.Silent
+    };
+    settings.AddPackage("depcheck");
+    NpmInstall(settings);
+});
+
+Task("depcheck")
+    .IsDependentOn("Install-depcheck")
+    .IsDependeeOf("Package-Extension")
+    .Does(() =>
+{
+    var proc = "depcheck";
+    if(BuildParameters.IsRunningOnWindows) {
+        proc += ".cmd";
+    }
+
+    var ret = StartProcess(proc, "");
+    if(ret != 0) {
+        throw new Exception("There are unused dependencies.");
+    }
+});
+
+Task("test")
+    .IsDependeeOf("Package-Extension")
+    .Does(() => {
+    
+    NpmRunScript(new NpmRunScriptSettings 
+    {
+        ScriptName = "vscode:prepublish",
+        LogLevel = NpmLogLevel.Silent
+    });
+
+    var proc = "node";
+    if(BuildParameters.IsRunningOnWindows) {
+        proc += ".exe";
+    }
+
+    var ok = StartProcess(proc, "./out/test/runTest.js");
+    if(ok != 0){
+        throw new Exception("Unit tests failed!");
+    }
+});
+
 Build.Run();
